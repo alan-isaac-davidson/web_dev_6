@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karunya Tech Events</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            padding: 30px;
+            color: #333;
+        }
+        h1 { text-align: center; color: #2c3e50; }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .event {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background-color 0.4s;
+        }
+        .event h3 {
+            margin-top: 0;
+            color: #34495e;
+            transition: color 0.3s;
+        }
+        .event p { color: #7f8c8d; font-weight: bold; }
+        .details {
+            display: none; /* Hidden by default */
+            padding: 15px;
+            background: #fdfefe;
+            border-left: 4px solid #3498db;
+            margin-top: 15px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .show-btn {
+            background-color: #3498db;
+            color: white;
+        }
+        .reg-btn {
+            background-color: #e67e22;
+            color: white;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Upcoming Tech Events</h1>
+
+        <div class="event">
+            <h3>Cyber Threat Hunting Workshop</h3>
+            <p>Date: October 15, 2026</p>
+            <button class="show-btn">Show Details</button>
+            <div class="details">
+                <p>Learn advanced tactical threat hunting, Indicators of Compromise (IoC) analysis, and live TTP hunting.</p>
+                <button class="reg-btn">Register</button>
+            </div>
+        </div>
+
+        <div class="event">
+            <h3>Natural Language Processing Masterclass</h3>
+            <p>Date: November 10, 2026</p>
+            <button class="show-btn">Show Details</button>
+            <div class="details">
+                <p>Dive into how we make machines talk like humans. Covers neural networks, tokenization, and transformer models.</p>
+                <button class="reg-btn">Register</button>
+            </div>
+        </div>
+
+        <div class="event">
+            <h3>Information Retrieval Systems Seminar</h3>
+            <p>Date: November 27, 2026</p>
+            <button class="show-btn">Show Details</button>
+            <div class="details">
+                <p>Explore TF-IDF, ranking algorithms, and how to detect and rank fake product reviews using IR concepts.</p>
+                <button class="reg-btn">Register</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            
+            // 1. When "Show Details" is clicked
+            $('.show-btn').click(function() {
+                let $eventDiv = $(this).closest('.event');
+                let $detailsDiv = $(this).siblings('.details');
+                let $h3 = $(this).siblings('h3'); 
+
+                // Display hidden details using slideToggle() smoothly
+                $detailsDiv.slideToggle();
+
+                // Change button text and apply styles
+                if ($(this).text() === "Show Details") {
+                    $(this).text("Hide Details");
+                    
+                    // Reset all other events to default white
+                    $('.event').css('background-color', 'white');
+                    $('h3').css('color', '#34495e');
+
+                    // Highlight THIS event background and h3 color using css()
+                    $eventDiv.css('background-color', '#eaf2f8');
+                    $h3.css('color', '#2980b9');
+                } else {
+                    $(this).text("Show Details");
+                    
+                    // Revert styles when hidden
+                    $eventDiv.css('background-color', 'white');
+                    $h3.css('color', '#34495e');
+                }
+            });
+
+            // 2. When "Register" is clicked
+            $('.reg-btn').click(function() {
+                // Traverse up to find the h3 text
+                let eventTitle = $(this).closest('.event').find('h3').text();
+                
+                // Lab Manual Requirement: Display it in an alert box!
+                alert("Redirecting to registration for: " + eventTitle);
+                
+                // Redirect and pass data via URL Parameter
+                window.location.href = "register.html?event=" + encodeURIComponent(eventTitle);
+            });
+        });
+    </script>
+</body>
+</html>
